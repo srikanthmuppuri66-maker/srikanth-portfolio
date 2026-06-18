@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Srikanth Muppuri — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0F1A;
+    --panel:#101826;
+    --panel-2:#0D1420;
+    --border:#1E2A3D;
+    --teal:#2DD4BF;
+    --teal-dim:#1A8F82;
+    --amber:#F5A623;
+    --text:#E8ECF3;
+    --muted:#8893A6;
+    --muted-2:#5C6678;
+    --maxw:1080px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:
+      radial-gradient(circle at 15% 8%, rgba(45,212,191,0.06), transparent 45%),
+      radial-gradient(circle at 85% 92%, rgba(245,166,35,0.05), transparent 45%);
+    pointer-events:none;
+    z-index:0;
+  }
+  a{color:var(--teal);}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px; position:relative; z-index:1;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--teal);
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:14px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:7px; height:7px;
+    background:var(--teal);
+    border-radius:1px;
+    display:inline-block;
+    box-shadow:0 0 8px rgba(45,212,191,0.7);
+  }
+  h1,h2,h3{font-family:'Space Grotesk', sans-serif; margin:0; letter-spacing:-0.01em;}
+
+  /* ---------- Skip link ---------- */
+  .skip-link{
+    position:absolute; left:-9999px; top:0;
+    background:var(--amber); color:#1a1200; padding:8px 14px; z-index:50; font-weight:600;
+  }
+  .skip-link:focus{left:12px; top:12px;}
+
+  /* ---------- Nav ---------- */
+  header.site-nav{
+    position:sticky; top:0; z-index:30;
+    background:rgba(10,15,26,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-inner{
+    max-width:var(--maxw); margin:0 auto; padding:14px 28px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .nav-mark{
+    font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--text);
+    letter-spacing:0.05em;
+  }
+  .nav-mark span{color:var(--amber);}
+  .nav-links{display:flex; gap:22px; list-style:none; margin:0; padding:0;}
+  .nav-links a{
+    font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.08em;
+    text-transform:uppercase; color:var(--muted); text-decoration:none;
+    padding:4px 2px; border-bottom:1px solid transparent;
+  }
+  .nav-links a:hover, .nav-links a:focus-visible{color:var(--teal); border-color:var(--teal);}
+  @media (max-width:640px){ .nav-links{display:none;} }
+
+  /* ---------- Hero ---------- */
+  .hero{padding:72px 0 0;}
+  .hero .eyebrow{margin-bottom:22px;}
+  .hero h1{
+    font-size:clamp(38px,7vw,64px);
+    font-weight:700;
+    color:#fff;
+  }
+  .hero .role{
+    font-size:clamp(16px,2.4vw,20px);
+    color:var(--teal);
+    font-weight:500;
+    margin-top:10px;
+  }
+  .hero .tagline{
+    color:var(--muted);
+    max-width:560px;
+    margin-top:18px;
+    font-size:16px;
+  }
+  .hero-meta{
+    margin-top:30px;
+    display:flex; flex-wrap:wrap; gap:10px;
+  }
+  .meta-chip{
+    display:inline-flex; align-items:center; gap:7px;
+    font-family:'JetBrains Mono',monospace; font-size:12.5px;
+    color:var(--muted);
+    background:var(--panel);
+    border:1px solid var(--border);
+    padding:8px 13px; border-radius:6px;
+  }
+  .meta-chip a{color:var(--text); text-decoration:none;}
+  .meta-chip a:hover{color:var(--teal);}
+  .cta-row{margin-top:28px; display:flex; gap:12px; flex-wrap:wrap;}
+  .btn{
+    font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.04em;
+    padding:11px 20px; border-radius:6px; text-decoration:none;
+    display:inline-flex; align-items:center; gap:8px;
+    border:1px solid var(--border);
+    transition:transform .15s ease, border-color .15s ease, background .15s ease;
+  }
+  .btn:hover{transform:translateY(-1px);}
+  .btn-primary{background:var(--teal); color:#06201C; border-color:var(--teal); font-weight:600;}
+  .btn-primary:hover{background:#3fe0ca;}
+  .btn-ghost{color:var(--text); background:transparent;}
+  .btn-ghost:hover{border-color:var(--teal); color:var(--teal);}
+
+  /* ---------- Signal trace nav-divider ---------- */
+  .trace-section{margin-top:64px; position:relative;}
+  .trace-caption{
+    text-align:center; font-family:'JetBrains Mono',monospace; font-size:11px;
+    color:var(--muted-2); letter-spacing:0.1em; margin-bottom:6px;
+  }
+  .trace-wrap{position:relative; width:100%;}
+  .trace-svg{display:block; width:100%; height:auto;}
+  .trace-svg path.base{
+    fill:none; stroke:var(--teal-dim); stroke-width:1.6; opacity:0.55;
+  }
+  .trace-svg path.glow{
+    fill:none; stroke:var(--teal); stroke-width:1.6;
+    stroke-dasharray:60 900;
+    filter:drop-shadow(0 0 4px rgba(45,212,191,0.9));
+    animation:scan 7s linear infinite;
+  }
+  @keyframes scan{
+    from{stroke-dashoffset:0;}
+    to{stroke-dashoffset:-960;}
+  }
+  .trace-markers{
+    position:absolute; inset:0; display:flex;
+  }
+  .marker-btn{
+    position:absolute; top:0; transform:translate(-50%,-38%);
+    background:none; border:none; cursor:pointer; padding:0;
+    display:flex; flex-direction:column; align-items:center; gap:8px;
+    font-family:'JetBrains Mono',monospace;
+    text-decoration:none;
+  }
+  .marker-dot{
+    width:9px; height:9px; border-radius:50%; background:var(--amber);
+    box-shadow:0 0 0 0 rgba(245,166,35,0.6);
+    animation:pulse 2.4s ease-out infinite;
+  }
+  .marker-btn:nth-child(2) .marker-dot{animation-delay:.3s;}
+  .marker-btn:nth-child(3) .marker-dot{animation-delay:.6s;}
+  .marker-btn:nth-child(4) .marker-dot{animation-delay:.9s;}
+  .marker-btn:nth-child(5) .marker-dot{animation-delay:1.2s;}
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(245,166,35,0.55);}
+    70%{box-shadow:0 0 0 8px rgba(245,166,35,0);}
+    100%{box-shadow:0 0 0 0 rgba(245,166,35,0);}
+  }
+  .marker-label{
+    font-size:10.5px; letter-spacing:0.1em; color:var(--muted);
+    text-transform:uppercase; white-space:nowrap;
+    transition:color .15s ease;
+  }
+  .marker-btn:hover .marker-label, .marker-btn:focus-visible .marker-label{color:var(--amber);}
+  .marker-btn:focus-visible{outline:2px solid var(--amber); outline-offset:4px; border-radius:4px;}
+  @media (max-width:640px){ .marker-label{display:none;} }
+
+  @media (prefers-reduced-motion: reduce){
+    .trace-svg path.glow{animation:none; stroke-dasharray:none; opacity:0.85;}
+    .marker-dot{animation:none;}
+    html{scroll-behavior:auto;}
+  }
+
+  /* ---------- Sections ---------- */
+  section{padding:88px 0;}
+  section.alt{background:linear-gradient(180deg, rgba(255,255,255,0.012), transparent);}
+  .section-head{margin-bottom:40px;}
+  .section-head h2{font-size:clamp(26px,4vw,34px); color:#fff;}
+  .lede{color:var(--muted); max-width:640px; margin-top:14px; font-size:16px;}
+
+  /* About */
+  .about-text{font-size:17px; color:#D7DCE6; max-width:660px;}
+  .about-text strong{color:var(--text);}
+
+  /* Skills */
+  .skill-grid{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-top:8px;
+  }
+  @media (max-width:680px){ .skill-grid{grid-template-columns:1fr;} }
+  .skill-card{
+    background:var(--panel); border:1px solid var(--border); border-radius:10px;
+    padding:22px 22px 20px;
+  }
+  .skill-card h3{
+    font-family:'JetBrains Mono',monospace; font-size:12.5px; letter-spacing:0.08em;
+    text-transform:uppercase; color:var(--amber); font-weight:500; margin-bottom:14px;
+  }
+  .tag-row{display:flex; flex-wrap:wrap; gap:8px;}
+  .tag{
+    font-size:13.5px; color:var(--text); background:var(--panel-2);
+    border:1px solid var(--border); padding:6px 12px; border-radius:5px;
+  }
+
+  /* Project */
+  .project-card{
+    background:var(--panel); border:1px solid var(--border); border-radius:12px;
+    padding:34px clamp(20px,4vw,40px);
+  }
+  .project-head{display:flex; justify-content:space-between; align-items:baseline; gap:16px; flex-wrap:wrap;}
+  .project-head h3{font-size:clamp(20px,3vw,26px); color:#fff;}
+  .project-date{font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--muted-2);}
+  .project-desc{color:#D7DCE6; margin-top:16px; max-width:700px; font-size:15.5px;}
+  .project-desc + .project-desc{margin-top:10px;}
+
+  .pipeline{
+    margin-top:34px; display:flex; align-items:stretch; gap:0;
+    overflow-x:auto; padding-bottom:6px;
+  }
+  .pipe-step{
+    flex:1 1 0; min-width:140px;
+    background:var(--panel-2); border:1px solid var(--border); border-radius:8px;
+    padding:14px 14px 16px; position:relative;
+  }
+  .pipe-step .num{
+    font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--teal); letter-spacing:0.08em;
+  }
+  .pipe-step .label{font-size:13.5px; color:var(--text); margin-top:6px; font-weight:500;}
+  .pipe-step .sub{font-size:11.5px; color:var(--muted-2); margin-top:4px; font-family:'JetBrains Mono',monospace;}
+  .pipe-arrow{
+    flex:0 0 28px; display:flex; align-items:center; justify-content:center;
+    color:var(--teal-dim); font-size:16px;
+  }
+  .pipe-step.highlight{border-color:rgba(245,166,35,0.5);}
+  .pipe-step.highlight .num{color:var(--amber);}
+
+  .tech-tags{margin-top:26px;}
+  .tech-tags .tag{background:transparent; border-color:var(--teal-dim); color:var(--teal);}
+
+  /* Certifications */
+  .cert-card{
+    background:var(--panel); border:1px solid var(--border); border-radius:12px;
+    padding:30px clamp(20px,4vw,36px);
+  }
+  .cert-card h3{font-size:19px; color:#fff;}
+  .cert-org{font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted-2); margin-top:6px;}
+  .cert-list{margin:18px 0 0; padding-left:0; list-style:none; color:#D7DCE6; font-size:15px;}
+  .cert-list li{padding-left:20px; position:relative; margin-bottom:9px;}
+  .cert-list li::before{
+    content:"›"; position:absolute; left:0; color:var(--amber); font-weight:700;
+  }
+
+  /* Education */
+  .edu-row{
+    display:flex; justify-content:space-between; align-items:flex-start; gap:20px; flex-wrap:wrap;
+    background:var(--panel); border:1px solid var(--border); border-radius:12px;
+    padding:28px clamp(20px,4vw,36px);
+  }
+  .edu-row h3{font-size:18px; color:#fff;}
+  .edu-row .college{color:var(--muted); font-size:14.5px; margin-top:6px;}
+  .edu-cgpa{
+    font-family:'JetBrains Mono',monospace; text-align:right;
+  }
+  .edu-cgpa .num{font-size:26px; color:var(--teal); font-weight:600;}
+  .edu-cgpa .cap{font-size:11px; color:var(--muted-2); letter-spacing:0.08em; text-transform:uppercase;}
+  .edu-dates{font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--muted-2); margin-top:10px;}
+
+  /* Contact / footer */
+  footer{
+    border-top:1px solid var(--border); padding:70px 0 40px;
+  }
+  .contact-inner{text-align:center;}
+  .contact-inner h2{font-size:clamp(26px,4vw,36px); color:#fff;}
+  .contact-inner p{color:var(--muted); margin-top:12px;}
+  .contact-row{
+    margin-top:30px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap;
+  }
+  .foot-note{
+    margin-top:50px; text-align:center; font-family:'JetBrains Mono',monospace;
+    font-size:11.5px; color:var(--muted-2);
+  }
+  .foot-note .amber{color:var(--amber);}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header class="site-nav">
+  <div class="nav-inner">
+    <div class="nav-mark">SM<span>_</span>PORTFOLIO</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#project">Project</a></li>
+      <li><a href="#certs">Certs</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="main">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow">Fresher · B.Tech Computer Science · 2026</div>
+      <h1>Srikanth Muppuri</h1>
+      <div class="role">Computer Science Graduate — Aspiring Software Engineer</div>
+      <p class="tagline">I build clean data pipelines, and I'm getting good at noticing what doesn't belong in them — most recently, anomalies in IoT sensor streams.</p>
+
+      <div class="hero-meta">
+        <span class="meta-chip">📍 Guntur, AP</span>
+        <span class="meta-chip">✉ <a href="mailto:srikanthmuppuri66@gmail.com">srikanthmuppuri66@gmail.com</a></span>
+        <span class="meta-chip">☎ 93475 77256</span>
+      </div>
+
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://www.linkedin.com/in/muppuri-srikanth-28a86935b" target="_blank" rel="noopener">View LinkedIn →</a>
+        <a class="btn btn-ghost" href="mailto:srikanthmuppuri66@gmail.com">Email Me</a>
+        <a class="btn btn-ghost" href="#project">See Featured Project</a>
+      </div>
+    </div>
+
+    <!-- Signature signal-trace nav -->
+    <div class="trace-section">
+      <div class="trace-caption">// live trace — anomaly threshold: 95th percentile</div>
+      <div class="trace-wrap">
+        <svg class="trace-svg" viewBox="0 0 1200 100" preserveAspectRatio="none" aria-hidden="true">
+          <path class="base" d="M0 50.00 L4 50.36 L8 50.72 L12 51.08 L16 51.43 L20 51.78 L24 52.11 L28 52.44 L32 52.75 L36 53.04 L40 53.32 L44 53.59 L48 53.83 L52 54.05 L56 54.26 L60 54.44 L64 54.59 L68 54.72 L72 54.83 L76 54.91 L80 54.97 L84 55.00 L88 53.30 L92 49.82 L96 45.06 L100 39.21 L104 32.40 L108 24.71 L112 24.55 L116 31.95 L120 38.46 L124 44.01 L128 48.48 L132 51.68 L136 53.10 L140 52.81 L144 52.50 L148 52.18 L152 51.85 L156 51.50 L160 51.15 L164 50.80 L168 50.43 L172 50.07 L176 49.71 L180 49.35 L184 48.99 L188 48.63 L192 48.29 L196 47.95 L200 47.63 L204 47.31 L208 47.01 L212 46.73 L216 46.46 L220 46.22 L224 45.99 L228 45.78 L232 45.60 L236 45.44 L240 45.30 L244 45.19 L248 45.10 L252 45.04 L256 45.01 L260 45.00 L264 45.02 L268 45.06 L272 45.14 L276 45.23 L280 45.35 L284 45.50 L288 45.67 L292 45.86 L296 46.08 L300 46.31 L304 46.57 L308 46.84 L312 47.13 L316 47.44 L320 47.76 L324 48.09 L328 48.43 L332 47.70 L336 44.97 L340 40.91 L344 35.76 L348 29.64 L352 22.64 L356 19.01 L360 27.14 L364 34.42 L368 40.77 L372 46.08 L376 50.20 L380 52.74 L384 53.22 L388 53.49 L392 53.74 L396 53.97 L400 54.18 L404 54.37 L408 54.53 L412 54.67 L416 54.79 L420 54.88 L424 54.95 L428 54.99 L432 55.00 L436 54.99 L440 54.95 L444 54.88 L448 54.79 L452 54.67 L456 54.53 L460 54.36 L464 54.18 L468 53.96 L472 53.73 L476 53.48 L480 53.21 L484 52.92 L488 52.62 L492 52.31 L496 51.98 L500 51.64 L504 51.29 L508 50.94 L512 50.58 L516 50.21 L520 49.85 L524 49.49 L528 49.13 L532 48.77 L536 48.42 L540 48.08 L544 47.75 L548 47.43 L552 47.13 L556 46.84 L560 46.57 L564 46.31 L568 46.08 L572 45.86 L576 45.11 L580 42.24 L584 37.98 L588 32.60 L592 26.26 L596 19.04 L600 11.02 L604 18.98 L608 26.13 L612 32.42 L616 37.73 L620 41.94 L624 44.74 L628 45.44 L632 45.60 L636 45.79 L640 45.99 L644 46.22 L648 46.47 L652 46.73 L656 47.02 L660 47.32 L664 47.63 L668 47.96 L672 48.29 L676 48.64 L680 48.99 L684 49.35 L688 49.71 L692 50.08 L696 50.44 L700 50.80 L704 51.16 L708 51.51 L712 51.85 L716 52.18 L720 52.50 L724 52.81 L728 53.10 L732 53.38 L736 53.64 L740 53.88 L744 54.10 L748 54.30 L752 54.47 L756 54.62 L760 54.75 L764 54.85 L768 54.92 L772 54.97 L776 55.00 L780 55.00 L784 54.97 L788 54.91 L792 54.83 L796 54.72 L800 54.59 L804 54.43 L808 54.25 L812 54.05 L816 53.83 L820 53.40 L824 50.89 L828 46.81 L832 41.53 L836 35.20 L840 27.95 L844 19.84 L848 23.48 L852 30.49 L856 36.62 L860 41.77 L864 45.83 L868 48.56 L872 49.27 L876 48.91 L880 48.56 L884 48.22 L888 47.88 L892 47.56 L896 47.25 L900 46.95 L904 46.67 L908 46.41 L912 46.17 L916 45.94 L920 45.74 L924 45.56 L928 45.41 L932 45.28 L936 45.17 L940 45.09 L944 45.03 L948 45.00 L952 45.00 L956 45.03 L960 45.08 L964 45.15 L968 45.26 L972 45.38 L976 45.53 L980 45.71 L984 45.91 L988 46.13 L992 46.37 L996 46.63 L1000 46.90 L1004 47.20 L1008 47.51 L1012 47.83 L1016 48.16 L1020 48.50 L1024 48.85 L1028 49.21 L1032 49.57 L1036 49.93 L1040 50.30 L1044 50.66 L1048 51.02 L1052 51.37 L1056 51.72 L1060 52.05 L1064 52.38 L1068 50.99 L1072 47.83 L1076 43.41 L1080 37.90 L1084 31.44 L1088 24.10 L1092 24.31 L1096 32.06 L1100 38.93 L1104 44.83 L1108 49.65 L1112 53.20 L1116 54.96 L1120 54.99 L1124 55.00 L1128 54.98 L1132 54.93 L1136 54.86 L1140 54.77 L1144 54.64 L1148 54.50 L1152 54.33 L1156 54.13 L1160 53.92 L1164 53.68 L1168 53.43 L1172 53.15 L1176 52.86 L1180 52.56 L1184 52.24 L1188 51.91 L1192 51.57 L1196 51.22 L1200 50.86" />
+          <path class="glow" d="M0 50.00 L4 50.36 L8 50.72 L12 51.08 L16 51.43 L20 51.78 L24 52.11 L28 52.44 L32 52.75 L36 53.04 L40 53.32 L44 53.59 L48 53.83 L52 54.05 L56 54.26 L60 54.44 L64 54.59 L68 54.72 L72 54.83 L76 54.91 L80 54.97 L84 55.00 L88 53.30 L92 49.82 L96 45.06 L100 39.21 L104 32.40 L108 24.71 L112 24.55 L116 31.95 L120 38.46 L124 44.01 L128 48.48 L132 51.68 L136 53.10 L140 52.81 L144 52.50 L148 52.18 L152 51.85 L156 51.50 L160 51.15 L164 50.80 L168 50.43 L172 50.07 L176 49.71 L180 49.35 L184 48.99 L188 48.63 L192 48.29 L196 47.95 L200 47.63 L204 47.31 L208 47.01 L212 46.73 L216 46.46 L220 46.22 L224 45.99 L228 45.78 L232 45.60 L236 45.44 L240 45.30 L244 45.19 L248 45.10 L252 45.04 L256 45.01 L260 45.00 L264 45.02 L268 45.06 L272 45.14 L276 45.23 L280 45.35 L284 45.50 L288 45.67 L292 45.86 L296 46.08 L300 46.31 L304 46.57 L308 46.84 L312 47.13 L316 47.44 L320 47.76 L324 48.09 L328 48.43 L332 47.70 L336 44.97 L340 40.91 L344 35.76 L348 29.64 L352 22.64 L356 19.01 L360 27.14 L364 34.42 L368 40.77 L372 46.08 L376 50.20 L380 52.74 L384 53.22 L388 53.49 L392 53.74 L396 53.97 L400 54.18 L404 54.37 L408 54.53 L412 54.67 L416 54.79 L420 54.88 L424 54.95 L428 54.99 L432 55.00 L436 54.99 L440 54.95 L444 54.88 L448 54.79 L452 54.67 L456 54.53 L460 54.36 L464 54.18 L468 53.96 L472 53.73 L476 53.48 L480 53.21 L484 52.92 L488 52.62 L492 52.31 L496 51.98 L500 51.64 L504 51.29 L508 50.94 L512 50.58 L516 50.21 L520 49.85 L524 49.49 L528 49.13 L532 48.77 L536 48.42 L540 48.08 L544 47.75 L548 47.43 L552 47.13 L556 46.84 L560 46.57 L564 46.31 L568 46.08 L572 45.86 L576 45.11 L580 42.24 L584 37.98 L588 32.60 L592 26.26 L596 19.04 L600 11.02 L604 18.98 L608 26.13 L612 32.42 L616 37.73 L620 41.94 L624 44.74 L628 45.44 L632 45.60 L636 45.79 L640 45.99 L644 46.22 L648 46.47 L652 46.73 L656 47.02 L660 47.32 L664 47.63 L668 47.96 L672 48.29 L676 48.64 L680 48.99 L684 49.35 L688 49.71 L692 50.08 L696 50.44 L700 50.80 L704 51.16 L708 51.51 L712 51.85 L716 52.18 L720 52.50 L724 52.81 L728 53.10 L732 53.38 L736 53.64 L740 53.88 L744 54.10 L748 54.30 L752 54.47 L756 54.62 L760 54.75 L764 54.85 L768 54.92 L772 54.97 L776 55.00 L780 55.00 L784 54.97 L788 54.91 L792 54.83 L796 54.72 L800 54.59 L804 54.43 L808 54.25 L812 54.05 L816 53.83 L820 53.40 L824 50.89 L828 46.81 L832 41.53 L836 35.20 L840 27.95 L844 19.84 L848 23.48 L852 30.49 L856 36.62 L860 41.77 L864 45.83 L868 48.56 L872 49.27 L876 48.91 L880 48.56 L884 48.22 L888 47.88 L892 47.56 L896 47.25 L900 46.95 L904 46.67 L908 46.41 L912 46.17 L916 45.94 L920 45.74 L924 45.56 L928 45.41 L932 45.28 L936 45.17 L940 45.09 L944 45.03 L948 45.00 L952 45.00 L956 45.03 L960 45.08 L964 45.15 L968 45.26 L972 45.38 L976 45.53 L980 45.71 L984 45.91 L988 46.13 L992 46.37 L996 46.63 L1000 46.90 L1004 47.20 L1008 47.51 L1012 47.83 L1016 48.16 L1020 48.50 L1024 48.85 L1028 49.21 L1032 49.57 L1036 49.93 L1040 50.30 L1044 50.66 L1048 51.02 L1052 51.37 L1056 51.72 L1060 52.05 L1064 52.38 L1068 50.99 L1072 47.83 L1076 43.41 L1080 37.90 L1084 31.44 L1088 24.10 L1092 24.31 L1096 32.06 L1100 38.93 L1104 44.83 L1108 49.65 L1112 53.20 L1116 54.96 L1120 54.99 L1124 55.00 L1128 54.98 L1132 54.93 L1136 54.86 L1140 54.77 L1144 54.64 L1148 54.50 L1152 54.33 L1156 54.13 L1160 53.92 L1164 53.68 L1168 53.43 L1172 53.15 L1176 52.86 L1180 52.56 L1184 52.24 L1188 51.91 L1192 51.57 L1196 51.22 L1200 50.86" />
+        </svg>
+        <div class="trace-markers">
+          <a href="#about" class="marker-btn" style="left:9.2%"><span class="marker-dot"></span><span class="marker-label">About</span></a>
+          <a href="#skills" class="marker-btn" style="left:29.6%"><span class="marker-dot"></span><span class="marker-label">Skills</span></a>
+          <a href="#project" class="marker-btn" style="left:50%"><span class="marker-dot"></span><span class="marker-label">Project</span></a>
+          <a href="#certs" class="marker-btn" style="left:70.4%"><span class="marker-dot"></span><span class="marker-label">Certs</span></a>
+          <a href="#contact" class="marker-btn" style="left:90.8%"><span class="marker-dot"></span><span class="marker-label">Contact</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">About</div>
+        <h2>Fresh out of college, ready to build.</h2>
+      </div>
+      <p class="about-text">I'm a Computer Science Engineering graduate from <strong>Sir C R Reddy College of Engineering</strong> (CGPA: 8.3), interested in software engineering and data-driven systems. My strongest project work so far is in Python — building a real-time anomaly detection pipeline for IoT sensor data using deep learning. I also picked up practical data analysis skills through a Deloitte job simulation, working with Tableau and Excel. I like making sense of messy data, and I'm now looking for an entry-level role where I can keep building on these fundamentals.</p>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="alt">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Skills</div>
+        <h2>What I work with</h2>
+        <p class="lede">Still early in my journey — these are the tools I've used hands-on through coursework and projects.</p>
+      </div>
+      <div class="skill-grid">
+        <div class="skill-card">
+          <h3>Programming</h3>
+          <div class="tag-row"><span class="tag">Python</span></div>
+        </div>
+        <div class="skill-card">
+          <h3>Data &amp; Analytics</h3>
+          <div class="tag-row">
+            <span class="tag">SQL</span><span class="tag">Microsoft Excel</span>
+            <span class="tag">Power BI</span><span class="tag">Tableau</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>Machine Learning</h3>
+          <div class="tag-row">
+            <span class="tag">TensorFlow / Keras</span><span class="tag">LSTM Autoencoders</span>
+            <span class="tag">NumPy</span><span class="tag">Pandas</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>Visualization &amp; Deployment</h3>
+          <div class="tag-row"><span class="tag">Streamlit</span><span class="tag">Plotly</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED PROJECT -->
+  <section id="project">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Featured Project</div>
+        <h2>Catching anomalies before they cause damage</h2>
+      </div>
+      <div class="project-card">
+        <div class="project-head">
+          <h3>Real-Time Anomaly Detection in IoT Sensor Data</h3>
+          <span class="project-date">Dec 2025 – Apr 2026</span>
+        </div>
+        <p class="project-desc">An unsupervised anomaly detection system that analyzes multivariate IoT sensor data using an LSTM Autoencoder. The model learns what "normal" sensor behavior looks like, then flags readings that don't fit the pattern — useful for predictive maintenance, where catching a problem early matters more than explaining it perfectly.</p>
+        <p class="project-desc">Built a full pipeline: MinMax scaling and sliding-window sequence generation for preprocessing, reconstruction-error scoring for detection, and a modular Python architecture so each stage (preprocessing, inference, visualization) can be tested on its own. Deployed it with Streamlit and Plotly for live, interactive monitoring.</p>
+
+        <div class="pipeline">
+          <div class="pipe-step">
+            <div class="num">01</div>
+            <div class="label">Sensor Data</div>
+            <div class="sub">multivariate input</div>
+          </div>
+          <div class="pipe-arrow">→</div>
+          <div class="pipe-step">
+            <div class="num">02</div>
+            <div class="label">Preprocessing</div>
+            <div class="sub">MinMax + sliding window</div>
+          </div>
+          <div class="pipe-arrow">→</div>
+          <div class="pipe-step">
+            <div class="num">03</div>
+            <div class="label">LSTM Autoencoder</div>
+            <div class="sub">learns "normal"</div>
+          </div>
+          <div class="pipe-arrow">→</div>
+          <div class="pipe-step highlight">
+            <div class="num">04</div>
+            <div class="label">Anomaly Score</div>
+            <div class="sub">95th percentile cutoff</div>
+          </div>
+          <div class="pipe-arrow">→</div>
+          <div class="pipe-step">
+            <div class="num">05</div>
+            <div class="label">Live Dashboard</div>
+            <div class="sub">Streamlit + Plotly</div>
+          </div>
+        </div>
+
+        <div class="tech-tags tag-row">
+          <span class="tag">Python</span><span class="tag">TensorFlow/Keras</span>
+          <span class="tag">LSTM</span><span class="tag">NumPy</span>
+          <span class="tag">Pandas</span><span class="tag">Streamlit</span><span class="tag">Plotly</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certs" class="alt">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Certifications</div>
+        <h2>Practical experience, simulated</h2>
+      </div>
+      <div class="cert-card">
+        <h3>Data Analytics Job Simulation</h3>
+        <div class="cert-org">DELOITTE AUSTRALIA · VIA FORAGE</div>
+        <ul class="cert-list">
+          <li>Completed a simulated client engagement covering data analysis and forensic technology.</li>
+          <li>Built an interactive data dashboard using Tableau.</li>
+          <li>Used Excel to classify datasets and draw business conclusions.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Education</div>
+        <h2>Where it started</h2>
+      </div>
+      <div class="edu-row">
+        <div>
+          <h3>Bachelor of Technology (B.Tech), Computer Science Engineering</h3>
+          <div class="college">Sir C R Reddy College of Engineering, Eluru, AP</div>
+          <div class="edu-dates">Oct 2022 – Apr 2026</div>
+        </div>
+        <div class="edu-cgpa">
+          <div class="num">8.3</div>
+          <div class="cap">CGPA</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- CONTACT -->
+<footer id="contact">
+  <div class="wrap contact-inner">
+    <div class="eyebrow" style="justify-content:center;">Contact</div>
+    <h2>Let's talk.</h2>
+    <p>Open to entry-level Software Engineer and Data Analyst roles — happy to connect.</p>
+    <div class="contact-row">
+      <a class="btn btn-primary" href="mailto:srikanthmuppuri66@gmail.com">✉ srikanthmuppuri66@gmail.com</a>
+      <a class="btn btn-ghost" href="tel:+919347577256">☎ 93475 77256</a>
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/muppuri-srikanth-28a86935b" target="_blank" rel="noopener">LinkedIn ↗</a>
+    </div>
+    <div class="foot-note">Guntur, AP · India <span class="amber">//</span> Built with care, one anomaly at a time.</div>
+  </div>
+</footer>
+
+</body>
+</html>
